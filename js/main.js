@@ -6,9 +6,9 @@ let citiesCodes =  [];
 
 (async function(){
 
-    let dataCountries = await parseFile('https://dl.dropboxusercontent.com/s/ybfrqtw39mx53ri/UNLOCODE1.csv?dl=0');
-    let dataCountries2 = await parseFile('https://dl.dropboxusercontent.com/s/2wclbvjash4t3tf/UNLOCODE2.csv?dl=0');
-    let dataCountries3 = await parseFile('https://dl.dropboxusercontent.com/s/6gn2kmb4ms5uko6/UNLOCODE3.csv?dl=0');
+    let dataCountries = await parseFile('https://practicaldeveloper.github.io/parseCsvCities/files/UNLOCODE1.csv');
+    let dataCountries2 = await parseFile('https://practicaldeveloper.github.io/parseCsvCities/files/UNLOCODE2.csv');
+    let dataCountries3 = await parseFile('https://practicaldeveloper.github.io/parseCsvCities/files/UNLOCODE3.csv');
     allCountriesCities = [...dataCountries, ...dataCountries2, ...dataCountries3]; 
     
     countries = [];
@@ -64,11 +64,11 @@ async function unParseCSVCountries() {
 /** Merge CSV file with countries names */
 async function mergeCSVCountries() {
     // gets translated countries names
-    let targetUrlRus = 'https://dl.dropboxusercontent.com/s/6oz5b7dear01cig74c0no/countriesRus.csv?rlkey=ftgckopb494gledcxflrp1wxd&dl=0';
+    let targetUrlRus = 'https://practicaldeveloper.github.io/parseCsvCities/files/countriesRus.csv';
     let dataRus = await parseFile(targetUrlRus);
 
     // gets countries names
-    let targetUrlEng = 'https://dl.dropboxusercontent.com/s/fi/iu3ke8wooful4qpzuguws/countries.csv?rlkey=pi9bpl55jjp2oi3g0m67w3lwm&dl=0';
+    let targetUrlEng = 'https://practicaldeveloper.github.io/parseCsvCities/files/countries.csv';
     let dataEng = await parseFile(targetUrlEng);
     
     let onlyCountriesCodes = countries.map(function(val) {
@@ -155,10 +155,10 @@ return cities;
 /** Save CSV file with cities names */
 async function parseCsvCoord() {
     // gets translated cities names
-    let targetUrlRus = 'http://dl.dropboxusercontent.com/scl/fi/u5h3swzl7rmrru0sinxtv/Cities_RuLast.csv?rlkey=bdp63j70s06vtf4vfric8pnx3&dl=0';
+    let targetUrlRus = 'https://practicaldeveloper.github.io/parseCsvCities/files/Cities_Ru.csv';
     let dataRus = await parseFile(targetUrlRus);
 
-    let targetUrl = 'https://dl.dropboxusercontent.com/scl/fi/c7spefvk2n2b3hxbig6qm/myfile_FromJS_Coord.csv?rlkey=fgd5eerny1u1no7624pns4zdl&dl=0';
+    let targetUrl = 'https://practicaldeveloper.github.io/parseCsvCities/files/citiesWithCoord.csv';
     let dataCoord = await parseFile(targetUrl);
 
     // gets countries codes, cities and coordinates
@@ -179,14 +179,3 @@ async function parseCsvCoord() {
       saveAs(blob, 'allCitiesWithRus.csv');
 }
 
-
-async function checkRus() {
-    // http://jrgraphix.net/r/Unicode/0400-04FF
-
-    //const cyrillicPattern = /^[\u0400-\u04FF]+$/;
-    var cyrillicPattern = /^[а-яё-\s/(/ /)/]+$/i;
-
-    console.log('вы-:', cyrillicPattern.test('ВЫУ - (вавав / )'));
-    console.log('Hello:', cyrillicPattern.test('Hello'));
-
-}
