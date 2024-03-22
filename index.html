@@ -1,0 +1,29 @@
+<!doctype html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Parse</title>
+</head>
+
+<body>
+
+    <div>
+        <input value="Parse CSV with cities" type="button" id="buttonParse" onclick="unParseCSV()">
+        <br>
+        <input value="Parse CSV with countries" type="button" id="buttonParseCountries" onclick="unParseCSVCountries()">
+        <input value="Merge CSV with countries" type="button" id="buttonMergeCountries" onclick="mergeCSVCountries()">
+        <br>
+        <input value="Merge CSV with coordinates" type="button" id="buttonParseCoord" onclick="parseCsvCoord()">
+    </div>
+
+    <script src="https://unpkg.com/papaparse@5.4.1/papaparse.min.js"></script>
+    <script src="./js/FileSaver.js"></script>
+    <script src="./js/main.js"></script>
+    
+    
+
+</body>
+
+</html>
