@@ -1,7 +1,6 @@
-let content = undefined; // all data from the parsed CSV file
-let allCountriesCities = []; // all countries with data from the CSV file
+let allCountriesCities = []; // array all data from the CSV file
 let countries= [{ countryCode : "", countryName : ""}]; // codes and names of the countries
-let citiesCodes =  [];
+let citiesCodes =  []; // array of cities with codes in format - code, city, coordinate
 
 
 (async function(){
@@ -16,7 +15,6 @@ let citiesCodes =  [];
 
     citiesCodes = [];
     citiesCodes = GetCitiesWithCodes(allCountriesCities);
-    debugger;
 })();
 
 /** CSV file parsing */
@@ -27,7 +25,6 @@ async function parseFile(file){
                 download: true,
                 encoding: "utf8",
             complete: (results) => {
-                content = results.data;
                 resolve(results.data);
             }
         } );
@@ -40,7 +37,6 @@ async function unParseCSV() {
     let onlyCities = citiesCodes.map(function(val) {
         return val.slice(2, 3);
     });
-    debugger;
     const dataString = Papa.unparse(onlyCities);
     const blob = new Blob([dataString], { type: 'text/csv;charset=utf-8' });
     saveAs(blob, 'myfile.csv');
@@ -54,7 +50,6 @@ async function unParseCSVCountries() {
 
         return val.slice(1, 2);
     });
-    debugger;
     const dataString = Papa.unparse(onlyCountries);
     const blob = new Blob([dataString], { type: 'text/csv;charset=utf-8' });
     saveAs(blob, 'countries.csv');
@@ -137,7 +132,6 @@ function GetCitiesWithCodes(allCountries) {
                         cities.push(newItem);
                     }
 
-                    //cities.push(newItem);
                     prevCountryCode = itemCountry[1];
                     prevCity = city;
 
@@ -158,9 +152,6 @@ async function parseCsvCoord() {
     let targetUrlRus = 'https://practicaldeveloper.github.io/parseCsvCities/files/Cities_Ru.csv';
     let dataRus = await parseFile(targetUrlRus);
 
-    let targetUrl = 'https://practicaldeveloper.github.io/parseCsvCities/files/citiesWithCoord.csv';
-    let dataCoord = await parseFile(targetUrl);
-
     // gets countries codes, cities and coordinates
     let onlyCities = citiesCodes.map(function(val) {
         return val.slice(0, 3);
@@ -173,9 +164,7 @@ async function parseCsvCoord() {
       });
 
       const dataString = Papa.unparse(result);
-
       const blob = new Blob(["\ufeff", dataString])
-      //const blob = new Blob([dataString], { type: 'text/csv;charset=utf-8' });
+
       saveAs(blob, 'allCitiesWithRus.csv');
 }
-
